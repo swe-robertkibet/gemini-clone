@@ -37,6 +37,12 @@ const Main = () => {
             <img src={assets.compass_icon} alt="" />
           </div>
         </div>
+
+        <div className="main-bottom">
+          <div className="search-box">
+            <input type="text" placeholder="Enter prompt here" />
+          </div>
+        </div>
       </div>
     </div>
   );
