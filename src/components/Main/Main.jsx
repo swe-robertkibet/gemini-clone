@@ -33,7 +33,7 @@ const Main = () => {
             <img src={assets.message_icon} alt="" />
           </div>
           <div className="card">
-            <p>List power words for my resume that show teamwork</p>
+            <p>Suggest beautiful places to see on an upcoming road trip</p>
             <img src={assets.compass_icon} alt="" />
           </div>
         </div>
