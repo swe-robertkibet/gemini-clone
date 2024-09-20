@@ -20,7 +20,7 @@ const generationConfig = {
     responseMimeType: "text/plain",
 };
 
-async function run() {
+async function run(prompt) {
     const chatSession = model.startChat({
         generationConfig,
         // safetySettings: Adjust safety settings
@@ -29,8 +29,8 @@ async function run() {
         ],
     });
 
-    const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
+    const result = await chatSession.sendMessage(prompt);
     console.log(result.response.text());
 }
 
-run();
+export default run;
