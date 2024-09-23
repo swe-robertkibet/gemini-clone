@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useCallback } from "react";
 import run from "../config/gemini";
 
 export const Context = createContext();
@@ -11,27 +11,48 @@ const ContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState("");
 
-  const delayPara = (index, nextWord) => {};
+  const delayPara = useCallback((index, nextWord) => {
+    setTimeout(() => {
+      setResultData((prev) => prev + nextWord);
+    }, 75 * index);
+  }, []);
+
+  const formatMarkdown = (text) => {
+    const boldRegex = /\*\*(.*?)\*\*/g;
+    const italicRegex = /\*(.*?)\*/g;
+    const bulletRegex = /^\s*[-*]\s/gm;
+
+    return text
+      .replace(boldRegex, "<b>$1</b>")
+      .replace(italicRegex, "<i>$1</i>")
+      .replace(bulletRegex, "• ")
+      .split("\n")
+      .join("<br />");
+  };
 
   const onSent = async (prompt) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
     setRecentPrompt(input);
-    const response = await run(input);
-    let responseArray = response.split("**");
-    let newResponse;
-    for (let i = 0; i < responseArray.length; i++) {
-      if (i === 0 || i % 2 !== 1) {
-        newResponse += responseArray[i];
-      } else {
-        newResponse += "<b>" + responseArray[i] + "</b>";
-      }
+
+    try {
+      const response = await run(input);
+      const formattedResponse = formatMarkdown(response);
+
+      const words = formattedResponse.split(" ");
+      words.forEach((word, index) => {
+        delayPara(index, word + " ");
+      });
+
+      setPrevPrompts((prev) => [...prev, input]);
+    } catch (error) {
+      console.error("Error processing response:", error);
+      setResultData("An error occurred while processing your request.");
+    } finally {
+      setLoading(false);
+      setInput("");
     }
-    let newResponse2 = newResponse.split("*").join("</br>");
-    setResultData(newResponse2);
-    setLoading(false);
-    setInput("");
   };
 
   const contextValue = {
@@ -46,6 +67,7 @@ const ContextProvider = (props) => {
     input,
     setInput,
   };
+
   return (
     <Context.Provider value={contextValue}>{props.children}</Context.Provider>
   );
