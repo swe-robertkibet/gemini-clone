@@ -51,7 +51,12 @@ const Main = () => {
             </div>
           </>
         ) : (
-          <div className="result"></div>
+          <div className="result">
+            <div className="result-title">
+              <img src={assets.user_icon} alt="" />
+              <p>{recentPrompt}</p>
+            </div>
+          </div>
         )}
 
         <div className="main-bottom">
