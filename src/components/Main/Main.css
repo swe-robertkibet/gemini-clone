@@ -137,3 +137,10 @@
 .result::-webkit-scrollbar {
   display: none;
 }
+
+.result-title {
+  margin: 40px 0px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
