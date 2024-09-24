@@ -14,6 +14,50 @@ const Main = () => {
     input,
   } = useContext(Context);
 
+  const renderContent = (content) => {
+    const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = codeBlockRegex.exec(content)) !== null) {
+      // Add text before code block
+      if (match.index > lastIndex) {
+        parts.push(
+          <p
+            key={lastIndex}
+            dangerouslySetInnerHTML={{
+              __html: content.slice(lastIndex, match.index),
+            }}
+          />
+        );
+      }
+
+      // Add code block
+      const language = match[1] || "";
+      const code = match[2].trim();
+      parts.push(
+        <pre key={match.index}>
+          <code className={`language-${language}`}>{code}</code>
+        </pre>
+      );
+
+      lastIndex = match.index + match[0].length;
+    }
+
+    // Add remaining text after last code block
+    if (lastIndex < content.length) {
+      parts.push(
+        <p
+          key={lastIndex}
+          dangerouslySetInnerHTML={{ __html: content.slice(lastIndex) }}
+        />
+      );
+    }
+
+    return parts;
+  };
+
   return (
     <div className="main">
       <div className="nav">
@@ -28,7 +72,6 @@ const Main = () => {
               <p>
                 <span>Hello, Dev.</span>
               </p>
-
               <p>How can I help you today?</p>
             </div>
             <div className="cards">
@@ -65,7 +108,7 @@ const Main = () => {
                   <hr />
                 </div>
               ) : (
-                <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
+                <div>{renderContent(resultData)}</div>
               )}
             </div>
           </div>

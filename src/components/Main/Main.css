@@ -32,19 +32,13 @@
   padding: 20px;
 }
 
-/* .main .greet span {
-  background: -webkit-linear-gradient(16deg, #4b90ff, #ff5546);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-} */
-
 .main .greet span {
   background: -webkit-linear-gradient(to right, #4b90ff, #ff5546);
   background: linear-gradient(to right, #4b90ff, #ff5546);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: transparent; /* Fallback for browsers that don't support background-clip: text */
+  color: transparent;
 }
 
 .main .cards {
@@ -183,7 +177,88 @@
 }
 
 .result-data {
-  font-style: 17px;
+  font-size: 17px;
   font-weight: 300;
   line-height: 1.8;
+}
+
+/* New styles for code generation and response text */
+.result-data pre {
+  background-color: #f0f4f9;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 16px 0;
+}
+
+.result-data code {
+  background-color: #e8ecf1;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9em;
+}
+
+.result-data p {
+  margin-bottom: 16px;
+}
+
+.result-data ul,
+.result-data ol {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+.result-data li {
+  margin-bottom: 8px;
+}
+
+.result-data h1,
+.result-data h2,
+.result-data h3,
+.result-data h4,
+.result-data h5,
+.result-data h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.result-data a {
+  color: #4b90ff;
+  text-decoration: none;
+}
+
+.result-data a:hover {
+  text-decoration: underline;
+}
+
+.result-data blockquote {
+  border-left: 4px solid #dfe4ea;
+  padding-left: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  color: #585858;
+}
+
+.result-data table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.result-data th,
+.result-data td {
+  border: 1px solid #dfe4ea;
+  padding: 8px;
+  text-align: left;
+}
+
+.result-data th {
+  background-color: #f0f4f9;
+  font-weight: 600;
 }
