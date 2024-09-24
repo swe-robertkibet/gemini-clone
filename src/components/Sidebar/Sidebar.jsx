@@ -25,9 +25,6 @@ const Sidebar = () => {
           <div className="recent">
             <p className="recent-title">Recent</p>
             {prevPrompts.map((item) => {
-              // Check if item and item.prompt exist before accessing
-              const promptPreview =
-                item && item.prompt ? item.prompt.slice(0, 18) : "";
               return (
                 <div
                   key={item.id}
@@ -35,7 +32,7 @@ const Sidebar = () => {
                   className="recent-entry"
                 >
                   <img src={assets.message_icon} alt="" />
-                  <p>{promptPreview} ...</p>
+                  <p>{item.prompt.slice(0, 18)} ...</p>
                 </div>
               );
             })}
