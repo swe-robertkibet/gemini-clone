@@ -41,22 +41,6 @@
   color: transparent;
 }
 
-/* .main .cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
-  padding: 20px;
-}
-
-.main .card {
-  height: 200px;
-  padding: 15px;
-  background-color: #f0f4f9;
-  border-radius: 10px;
-  cursor: pointer;
-  position: relative;
-} */
-
 .main .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -72,6 +56,7 @@
   cursor: pointer;
   position: relative;
 }
+
 .main .card img {
   width: 35px;
   padding: 5px;
@@ -197,85 +182,133 @@
   line-height: 1.8;
 }
 
-/* New styles for code generation and response text */
-.result-data pre {
-  background-color: #f0f4f9;
-  border-radius: 8px;
-  padding: 16px;
-  overflow-x: auto;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 14px;
-  line-height: 1.4;
-  margin: 16px 0;
+.markdown-content {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  padding: 0px;
 }
 
-.result-data code {
-  background-color: #e8ecf1;
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.9em;
-}
-
-.result-data p {
-  margin-bottom: 16px;
-}
-
-.result-data ul,
-.result-data ol {
-  margin-left: 24px;
-  margin-bottom: 16px;
-}
-
-.result-data li {
-  margin-bottom: 8px;
-}
-
-.result-data h1,
-.result-data h2,
-.result-data h3,
-.result-data h4,
-.result-data h5,
-.result-data h6 {
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
   margin-top: 24px;
   margin-bottom: 16px;
   font-weight: 600;
+  line-height: 1.25;
 }
 
-.result-data a {
-  color: #4b90ff;
-  text-decoration: none;
+.markdown-content h1 {
+  font-size: 2em;
+}
+.markdown-content h2 {
+  font-size: 1.5em;
+}
+.markdown-content h3 {
+  font-size: 1.25em;
+}
+.markdown-content h4 {
+  font-size: 1em;
+}
+.markdown-content h5 {
+  font-size: 0.875em;
+}
+.markdown-content h6 {
+  font-size: 0.85em;
 }
 
-.result-data a:hover {
-  text-decoration: underline;
-}
-
-.result-data blockquote {
-  border-left: 4px solid #dfe4ea;
-  padding-left: 16px;
-  margin-left: 0;
-  margin-right: 0;
-  font-style: italic;
-  color: #585858;
-}
-
-.result-data table {
-  border-collapse: collapse;
-  width: 100%;
+.markdown-content p {
   margin-bottom: 16px;
 }
 
-.result-data th,
-.result-data td {
-  border: 1px solid #dfe4ea;
-  padding: 8px;
-  text-align: left;
+.markdown-content pre {
+  background-color: #f6f8fa;
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  margin-bottom: 16px;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
-.result-data th {
-  background-color: #f0f4f9;
-  font-weight: 600;
+.markdown-content code {
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+  font-size: 85%;
+  margin: 0;
+  padding: 0.2em 0.4em;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.markdown-content pre > code {
+  background-color: transparent;
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  word-break: normal;
+  overflow-x: auto;
+  display: block;
+}
+
+.markdown-content .syntax-highlighter {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.markdown-content a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.markdown-content a:hover {
+  text-decoration: underline;
+}
+
+.markdown-content blockquote {
+  margin: 0 0 16px;
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: 0.25em solid #dfe2e5;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  padding-left: 2em;
+  margin-bottom: 16px;
+}
+
+.markdown-content table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.markdown-content table th,
+.markdown-content table td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+.markdown-content table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+@media (max-width: 768px) {
+  .markdown-content pre,
+  .markdown-content .syntax-highlighter {
+    max-width: calc(100vw - 100px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 @media (max-width: 600px) {

@@ -2,6 +2,10 @@ import React, { useContext } from "react";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context";
+import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
+import rehypeRaw from "rehype-raw";
 
 const Main = () => {
   const {
@@ -14,48 +18,14 @@ const Main = () => {
     input,
   } = useContext(Context);
 
-  const renderContent = (content) => {
-    const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
-    const parts = [];
-    let lastIndex = 0;
-    let match;
-
-    while ((match = codeBlockRegex.exec(content)) !== null) {
-      // Add text before code block
-      if (match.index > lastIndex) {
-        parts.push(
-          <p
-            key={lastIndex}
-            dangerouslySetInnerHTML={{
-              __html: content.slice(lastIndex, match.index),
-            }}
-          />
-        );
-      }
-
-      // Add code block
-      const language = match[1] || "";
-      const code = match[2].trim();
-      parts.push(
-        <pre key={match.index}>
-          <code className={`language-${language}`}>{code}</code>
-        </pre>
-      );
-
-      lastIndex = match.index + match[0].length;
-    }
-
-    // Add remaining text after last code block
-    if (lastIndex < content.length) {
-      parts.push(
-        <p
-          key={lastIndex}
-          dangerouslySetInnerHTML={{ __html: content.slice(lastIndex) }}
-        />
-      );
-    }
-
-    return parts;
+  const CodeBlock = ({ language, value }) => {
+    return (
+      <div className="syntax-highlighter">
+        <SyntaxHighlighter language={language} style={tomorrow}>
+          {value}
+        </SyntaxHighlighter>
+      </div>
+    );
   };
 
   return (
@@ -99,6 +69,7 @@ const Main = () => {
               <img src={assets.user_icon} alt="" />
               <p>{recentPrompt}</p>
             </div>
+
             <div className="result-data">
               <img src={assets.gemini_icon} alt="" />
               {loading ? (
@@ -108,7 +79,29 @@ const Main = () => {
                   <hr />
                 </div>
               ) : (
-                <div>{renderContent(resultData)}</div>
+                <div className="markdown-content">
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeRaw]}
+                    components={{
+                      code({ node, inline, className, children, ...props }) {
+                        const match = /language-(\w+)/.exec(className || "");
+                        return !inline && match ? (
+                          <CodeBlock
+                            language={match[1]}
+                            value={String(children).replace(/\n$/, "")}
+                            {...props}
+                          />
+                        ) : (
+                          <code className={className} {...props}>
+                            {children}
+                          </code>
+                        );
+                      },
+                    }}
+                  >
+                    {resultData}
+                  </ReactMarkdown>
+                </div>
               )}
             </div>
           </div>
