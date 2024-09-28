@@ -1,3 +1,5 @@
+// FORMER CONTEXT.JSX
+
 import { createContext, useState } from "react";
 import run from "../config/gemini";
 
